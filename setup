@@ -1,0 +1,120 @@
+#install shadowsocks and startup
+##https://blog.51cto.com/u_15127700/2847482
+#using py2.7
+pip install shadowsocks
+ssserver -p 8889 -k PASSWORD -m rc4-md5 -d start
+
+#check and config swap
+##https://www.cnblogs.com/binghuaZhang/p/13396751.html
+dd if=/dev/zero of=/root/swapfile bs=1M count=4096
+mkswap /root/swapfile
+swapon /root/swapfile
+echo "/root/swapfile swap swap defaults 0 0" >> /etc/fstab #optional
+
+#config nfs
+
+#install docker
+##https://cloud.tencent.com/developer/article/1701451
+yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+yum list docker-ce --showduplicates | sort
+
+yum -y install docker-ce-18.06.3.ce
+
+#install git 2.x
+##https://www.csdn.net/tags/MtzaYgxsMDAxMy1ibG9n.html
+yum install http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm
+yum -y install git
+
+#install cmake 3.x
+##https://www.jianshu.com/p/1b71d8048da2
+echo '[group_kdesig-cmake3_EPEL]
+name=Copr repo for cmake3_EPEL owned by @kdesig
+baseurl=https://copr-be.cloud.fedoraproject.org/results/@kdesig/cmake3_EPEL/epel-7-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://copr-be.cloud.fedoraproject.org/results/@kdesig/cmake3_EPEL/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1' >> /etc/yum.repos.d/cmake3.repo
+
+yum install -y cmake3
+
+#install vim8.1
+##https://www.cnblogs.com/brooksj/p/10428705.html
+yum install ruby ruby-devel lua lua-devel luajit \
+luajit-devel ctags git python python-devel \
+python36 python36-devel tcl-devel \
+perl perl-devel perl-Extutils-ParseXS \
+perl-ExtUtils-XSpp perl-ExtUtils-CBuilder \
+perl-ExtUtils-Embed libX* ncurses-devel gtk2-devel
+
+git clone https://github.com/vim/vim.git
+git checkout v8.1.2424
+
+./configure --with-features=huge \
+--enable-gui=gtk2 \
+--with-x \
+--enable-fontset \
+--enable-cscope \
+--enable-multibyte \
+--enable-pythoninterp \
+--with-python-config-dir=/usr/lib64/python2.7/config \
+--enable-python3interp \
+--with-python3-config-dir=/usr/lib64/python3.6/config \
+--enable-luainterp \
+--enable-rubyinterp \
+--enable-perlinterp \
+--enable-multibyte \
+--prefix=/usr/local/vim \
+--with-compiledby="brooksj"
+
+make && make install
+
+export PATH=/usr/local/vim/bin:$PATH
+
+#fix YouCompleteMe unavailable: unable to load Python.
+##https://blog.csdn.net/qq_42392366/article/details/107732973
+make uninstall
+
+./configure --with-features=huge \
+--enable-multibyte \
+--enable-gtk3-check \
+--enable-rubyinterp=yes \
+--with-python3-command=python3 \
+--enable-python3interp=yes \
+--enable-perlinterp=yes \
+--enable-luainterp=yes \
+--enable-cscope
+
+make && make install
+
+#install miniconda3
+##https://www.csdn.net/tags/NtzaEgwsNDM1ODItYmxvZwO0O0OO0O0O.html
+wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh
+sh Miniconda3-latest-Linux-x86_64.sh
+source ~/.bashrc
+conda create -n py36 python===3.6.8
+conda activate py36
+
+#install devtoolset-v8
+##https://www.zhangfangzhou.cn/centos7-devtoolset8-gcc.html
+yum install centos-release-scl -y
+yum install devtoolset-8 -y
+
+#install ycm
+##https://blog.csdn.net/zhouguoqionghai/article/details/106160195
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+git clone https://github.com/Valloric/YouCompleteMe.git ~/.vim/bundle/YouCompleteMe
+cd ~/.vim/bundle/YouCompleteMe
+git submodule update --init --recursive
+scl enable devtoolset-8 bash
+conda activate py36
+python ./install.py --clang-completer
+
+#fix GLIBCXX
+##https://www.jianshu.com/p/abbf924acd24
+
+#install bazel and clone tf
