@@ -12,6 +12,27 @@ swapon /root/swapfile
 echo "/root/swapfile swap swap defaults 0 0" >> /etc/fstab #optional
 
 #config nfs
+##https://www.csdn.net/tags/NtzaYgzsMzA2OTItYmxvZwO0O0OO0O0O.html
+yum -y install nfs-utils
+chmod -R 777 /work/tensorflow/
+vim /etc/exports
+/work/tensorflow/ *(rw,no_root_squash,sync)
+systemctl restart rpcbind && systemctl enable rpcbind
+systemctl restart nfs && systemctl enable nfs
+vim /etc/sysconfig/nfs
+RQUOTAD_PORT=8081
+LOCKD_TCPPORT=8082
+LOCKD_UDPPORT=8082
+MOUNTD_PORT=8083
+STATD_PORT=8084
+systemctl restart rpcbind
+systemctl restart nfs
+rpcinfo -p 127.0.0.1
+
+#fix mount_nfs: can't mount onto
+##https://askubuntu.com/questions/1344687/cant-mount-nfs-share-on-mac-os-big-sur-shared-from-ubuntu-21-04-rpc-statd-not
+vim /etc/exports
+/work/ *(rw,no_root_squash,sync,insecure)
 
 #install docker
 ##https://cloud.tencent.com/developer/article/1701451
