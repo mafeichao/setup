@@ -11,6 +11,29 @@ mkswap /root/swapfile
 swapon /root/swapfile
 echo "/root/swapfile swap swap defaults 0 0" >> /etc/fstab #optional
 
+#config rsync
+##https://blog.51cto.com/u_13525470/2063052
+yum -y install rsync
+vim  /etc/rsyncd.conf
+motd file=/etc/rsyncd.welcome
+uid=0
+gid=0
+motd file=/etc/rsyncd.welcome
+[tf_dev]
+path=/tf_dev
+vim  /etc/rsyncd.welcome
+*******************************************
+****** ^_^ Welcome to use rsync！^_^ ******
+*******************************************
+systemctl  restart  rsyncd.service
+netstat  -ntlp  |  grep  rsync
+lsof  -i:873
+#断点续传
+##https://www.cnblogs.com/linn/p/5602857.html
+rsync -avzP 124.156.0.178::tf_dev .
+#权限问题解决
+##https://blog.csdn.net/iteye_5233/article/details/82198165
+
 #config nfs
 ##https://www.csdn.net/tags/NtzaYgzsMzA2OTItYmxvZwO0O0OO0O0O.html
 yum -y install nfs-utils
