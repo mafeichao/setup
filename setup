@@ -11,6 +11,13 @@ mkswap /root/swapfile
 swapon /root/swapfile
 echo "/root/swapfile swap swap defaults 0 0" >> /etc/fstab #optional
 
+#config sshd
+##https://www.jianshu.com/p/1b1e56a2ec4f
+yum install openssh-server -y
+vim /etc/ssh/sshd_config
+#去掉#Port 22、PermitRootLogin（开启远程登陆） PasswordAuthentication
+service sshd start
+
 #config rsync
 ##https://blog.51cto.com/u_13525470/2063052
 yum -y install rsync

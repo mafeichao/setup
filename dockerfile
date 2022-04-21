@@ -2,7 +2,7 @@ FROM centos:centos7
 
 #install basics
 RUN yum update -y && \
-yum install wget which net-tools.x86_64 gcc gcc-c++ -y
+yum install wget which net-tools.x86_64 gcc gcc-c++ lsof initscripts.x86_64 openssh-server -y
 
 #install git 2.x
 ##https://www.csdn.net/tags/MtzaYgxsMDAxMy1ibG9n.html
