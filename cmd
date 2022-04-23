@@ -9,3 +9,6 @@ export TEST_TMPDIR=/Users/mafeichao/Work/tf_dev/bazel
 bazel build --config=opt //tensorflow/tools/pip_package:build_pip_package
 
 nohup rsync -avzP 43.152.204.44::tf_dev . &
+
+showmount -e 43.152.204.44
+mount -t nfs 43.152.204.44:/work /Users/mafeichao/shared
