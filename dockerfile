@@ -9,8 +9,8 @@ yum install wget which net-tools.x86_64 gcc gcc-c++ lsof initscripts.x86_64 open
 #yum install openssh-server -y
 #vim /etc/ssh/sshd_config
 #去掉#Port 22、PermitRootLogin（开启远程登陆） PasswordAuthentication
-RUN echo -e 'Port 22\nPermitRootLogin yes\nPasswordAuthentication yes' >> /etc/ssh/sshd_config && \
-service sshd start
+#RUN echo -e 'Port 22\nPermitRootLogin yes\nPasswordAuthentication yes' >> /etc/ssh/sshd_config && \
+#service sshd start
 
 #install git 2.x
 ##https://www.csdn.net/tags/MtzaYgxsMDAxMy1ibG9n.html
