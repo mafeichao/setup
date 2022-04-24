@@ -4,6 +4,14 @@ FROM centos:centos7
 RUN yum update -y && \
 yum install wget which net-tools.x86_64 gcc gcc-c++ lsof initscripts.x86_64 openssh-server -y
 
+#config sshd
+##https://www.jianshu.com/p/1b1e56a2ec4f
+#yum install openssh-server -y
+#vim /etc/ssh/sshd_config
+#去掉#Port 22、PermitRootLogin（开启远程登陆） PasswordAuthentication
+RUN echo -e 'Port 22\nPermitRootLogin yes\nPasswordAuthentication yes' >> /etc/ssh/sshd_config && \
+service sshd start
+
 #install git 2.x
 ##https://www.csdn.net/tags/MtzaYgxsMDAxMy1ibG9n.html
 RUN yum -y install http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm && \
