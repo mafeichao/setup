@@ -1,3 +1,9 @@
+#install pip
+##https://www.jianshu.com/p/5220d12b15e3
+yum -y install epel-release
+yum install python-pip
+pip install --upgrade pip
+
 #install shadowsocks and startup
 ##https://blog.51cto.com/u_15127700/2847482
 #using py2.7
@@ -64,6 +70,10 @@ rpcinfo -p 127.0.0.1
 vim /etc/exports
 /work/ *(rw,no_root_squash,sync,insecure)
 
+#install yum config manager
+##https://www.cnblogs.com/coolruo/articles/13891885.html
+yum install -y yum-utils
+
 #install docker
 ##https://cloud.tencent.com/developer/article/1701451
 yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo
@@ -75,7 +85,7 @@ yum -y install docker-ce-18.06.3.ce
 
 #install git 2.x
 ##https://www.csdn.net/tags/MtzaYgxsMDAxMy1ibG9n.html
-yum install http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm
+yum -y install http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm
 yum -y install git
 
 #install cmake 3.x
