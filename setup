@@ -5,10 +5,10 @@ yum install python-pip
 pip install --upgrade pip
 
 #install shadowsocks and startup
-##https://blog.51cto.com/u_15127700/2847482
+##https://rongsp.com/article/123.html
 #using py2.7
-pip install shadowsocks
-ssserver -p 8889 -k PASSWORD -m rc4-md5 -d start
+pip install https://github.com/shadowsocks/shadowsocks/archive/master.zip
+ssserver -p 8889 -k PASSWORD -m aes-256-gcm -d start
 
 #check and config swap
 ##https://www.cnblogs.com/binghuaZhang/p/13396751.html
