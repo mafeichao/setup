@@ -2,7 +2,7 @@ FROM centos:centos7
 
 #install basics
 RUN yum update -y && \
-yum install wget which net-tools.x86_64 gcc gcc-c++ lsof initscripts.x86_64 openssh-server -y
+yum install wget which net-tools.x86_64 gcc gcc-c++ lsof initscripts.x86_64 openssh-server patch unzip -y
 
 #config sshd
 ##https://www.jianshu.com/p/1b1e56a2ec4f
