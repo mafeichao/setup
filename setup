@@ -179,3 +179,28 @@ python ./install.py --clang-completer
 ##https://www.jianshu.com/p/abbf924acd24
 
 #install bazel and clone tf
+
+#docker 安装jenkins
+#https://blog.csdn.net/hzp666/article/details/123636882
+docker pull jenkins/jenkins
+#docker run -d --rm -p 10240:8080 \
+docker run -d --restart always -p 10240:8080 \
+           -p 10241:50000 \
+           -v /etc/localtime:/etc/localtime \
+           -v /apps/jenkins:/var/jenkins_home \
+           -v /apps/apache-maven-3.8.5:/usr/local/maven \
+           -e JAVA_OPTS=-Duser.timezone=Asia/Shanghai --name myjenkins jenkins/jenkins
+
+#docker 安装gitlab
+#https://www.cnblogs.com/Narule/p/15831977.html
+docker pull gitlab/gitlab-ce
+docker run \
+ -d \
+ --publish 10242:443 --publish 10243:80 --publish 10244:22 \
+ -v /apps/gitlab/etc:/etc/gitlab  \
+ -v /apps/gitlab/log:/var/log/gitlab \
+ -v /apps/gitlab/opt:/var/opt/gitlab \
+ --restart always \
+ --privileged=true \
+ --name gitlab \
+ gitlab/gitlab-ce
